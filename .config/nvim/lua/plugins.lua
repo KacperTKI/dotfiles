@@ -37,7 +37,6 @@ return require('packer').startup(function(use)
     use 'gruvbox-community/gruvbox'
     use 'rust-lang/rust.vim'
     use 'luochen1990/rainbow'
-    use {'neoclide/coc.nvim', branch = 'release'}
     use 'neovimhaskell/haskell-vim'
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
