@@ -1,2 +1,2 @@
-require("kacpertki.remap")
 require("kacpertki.set")
+require("kacpertki.remap")

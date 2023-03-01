@@ -38,7 +38,7 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 require('lspconfig').clangd.setup{
-  on_attach = on_attach,
+  on_attach = lsp.on_attach,
   cmd = {
     "clangd",
     "--query-driver=/bin/clang,/bin/clang++,usr/bin/gcc,/usr/bin/g++",
