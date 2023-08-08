@@ -13,6 +13,7 @@ lsp.ensure_installed({
     'clangd',
     'jdtls',
     'rust_analyzer',
+    'cmake',
 })
 
 -- Use an on_attach function to only map the following keys
@@ -63,6 +64,12 @@ lsp.configure('clangd', {
 
 lsp.configure('jdtls', {
     on_attach = on_attach,
+    capabilities = capabilities
+})
+
+lsp.configure('cmake', {
+    on_attach = on_attach,
+    filetypes = { "cmake", "CMakeLists.txt" },
     capabilities = capabilities
 })
 

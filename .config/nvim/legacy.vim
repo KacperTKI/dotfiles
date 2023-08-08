@@ -13,37 +13,6 @@ au BufEnter,BufNew *.hpp nnoremap <silent> ;xp :rightbelow split %<.cpp<CR>
 " surround with std::optional
 nnoremap <silent> ;cso :execute 's/\(' . expand('<cWORD>') . '\)/std::optional<\1>'<CR>:noh<CR>
 
-" enable history for fzf
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-" easy-motion
-" disable default mappings, turn on case-insensitivity
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-
-" find character
-nmap .s <Plug>(easymotion-overwin-f)
-
-" find 2 characters
-nmap .d <Plug>(easymotion-overwin-f2)
-
-" global word find
-nmap .g <Plug>(easymotion-overwin-w)
-
-" t/f (find character on line)
-nmap .t <Plug>(easymotion-tl)
-nmap .f <Plug>(easymotion-fl)
-
-" move to start of line when jumping lines
-let g:EasyMotion_startofline = 1
-
-" jk/l motions: Line motions
-nmap .j <Plug>(easymotion-j)
-nmap .k <Plug>(easymotion-k)
-nmap ./ <Plug>(easymotion-overwin-line)
-
-nmap .a <Plug>(easymotion-jumptoanywhere)
-
 " faster updates!
 set updatetime=50
 
@@ -95,9 +64,6 @@ let c_no_curly_error=1
 " Get syntax files from config folder
 set runtimepath+=~/.config/nvim/syntax
 
-" fzf in runtimepath
-set rtp+=/usr/local/opt/fzf
-
 " Use ripgrep as grep
 set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
@@ -113,9 +79,6 @@ nmap <esc>a <a-a>
 
 " Disable C-z from job-controlling neovim
 nnoremap <c-z> <nop>
-
-" Ctrl-k closes all floating windows in normal mode
-nmap <c-k> call coc#float#close_all()
 
 " Remap C-c to <esc>
 nmap <c-c> <esc>
@@ -150,12 +113,6 @@ set encoding=utf-8
 
 " Line wrap
 set wrap
-
-" C-p: FZF find files
-nnoremap <silent> <C-p> :Files<CR>
-
-" C-g: FZF ('g'rep)/find in files
-nnoremap <silent> <C-g> :Rg<CR>
 
 " Function to set tab width to n spaces
 function! SetTab(n)
@@ -207,10 +164,10 @@ autocmd BufRead,BufNewFile *.c setlocal colorcolumn=80
 autocmd BufRead,BufNewFile *.h setlocal colorcolumn=80
 autocmd BufRead,BufNewFile *.cpp setlocal colorcolumn=80
 autocmd BufRead,BufNewFile *.hpp setlocal colorcolumn=80
-autocmd BufRead,BufNewFile *.c SetTab 4
-autocmd BufRead,BufNewFile *.h SetTab 4
-autocmd BufRead,BufNewFile *.cpp SetTab 4
-autocmd BufRead,BufNewFile *.hpp SetTab 4
+autocmd BufRead,BufNewFile *.c SetTab 2
+autocmd BufRead,BufNewFile *.h SetTab 2
+autocmd BufRead,BufNewFile *.cpp SetTab 2
+autocmd BufRead,BufNewFile *.hpp SetTab 2
 
 " C/C++ indent options: fix extra indentation on function continuation
 set cino=(0,W4
