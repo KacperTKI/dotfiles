@@ -44,9 +44,6 @@ noremap <silent> ;w :update<CR>
 ";f formats in normal mode
 noremap <silent> ;f gg=G``:w<CR>
 
-" language-specific formatters
-au FileType cpp set formatprg=clang-format | set equalprg=clang-format
-
 let g:lion_squeeze_spaces = 1
 
 " no folds, ever
