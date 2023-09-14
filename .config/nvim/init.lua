@@ -1,4 +1,4 @@
-require('plugins')
+require "plugins"
 
 -- space as leader
 vim.g.mapleader = " "
@@ -14,6 +14,7 @@ require('set')
 require('remap')
 
 require('mylsp')
+require('diagnostics')
 require('nvimcmp')
 
 -- lualine
@@ -21,7 +22,7 @@ require('lualine').setup()
 
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {
-	ensure_installed = {"c", "java", "cpp", "cmake", "lua", "rust", "help", "vim"},
+	ensure_installed = {"c", "java", "cpp", "cmake", "lua", "rust", "vim"},
 	sync_install = false,
 	auto_install = true,
 	highlight = {
