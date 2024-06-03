@@ -64,6 +64,8 @@ lsp.configure('clangd', {
 
 lsp.configure('jdtls', {
     on_attach = on_attach,
+    filetypes = {"java"},
+    single_file_support = true,
     capabilities = capabilities
 })
 

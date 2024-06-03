@@ -1,14 +1,14 @@
 " C++ helpers
 
 " switch between hpp and cpp
-au BufEnter,BufNew *.cpp nnoremap <silent> ;p :e %<.hpp<CR>
-au BufEnter,BufNew *.hpp nnoremap <silent> ;p :e %<.cpp<CR>
+au BufEnter,BufNew *.cpp nnoremap <silent> ;p :e %<.h<CR>
+au BufEnter,BufNew *.h nnoremap <silent> ;p :e %<.cpp<CR>
 
-au BufEnter,BufNew *.cpp nnoremap <silent> ;vp :leftabove vs %<.hpp<CR>
-au BufEnter,BufNew *.hpp nnoremap <silent> ;vp :rightbelow vs %<.cpp<CR>
+au BufEnter,BufNew *.cpp nnoremap <silent> ;vp :leftabove vs %<.h<CR>
+au BufEnter,BufNew *.h nnoremap <silent> ;vp :rightbelow vs %<.cpp<CR>
 
-au BufEnter,BufNew *.cpp nnoremap <silent> ;xp :leftabove split %<.hpp<CR>
-au BufEnter,BufNew *.hpp nnoremap <silent> ;xp :rightbelow split %<.cpp<CR>
+au BufEnter,BufNew *.cpp nnoremap <silent> ;xp :leftabove split %<.h<CR>
+au BufEnter,BufNew *.h nnoremap <silent> ;xp :rightbelow split %<.cpp<CR>
 
 " surround with std::optional
 nnoremap <silent> ;cso :execute 's/\(' . expand('<cWORD>') . '\)/std::optional<\1>'<CR>:noh<CR>
