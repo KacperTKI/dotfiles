@@ -64,11 +64,14 @@ set runtimepath+=~/.config/nvim/syntax
 " Use ripgrep as grep
 set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
-" Colorscheme
+" colorscheme
 set termguicolors
-let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_contrast_light='hard'
 colorscheme gruvbox
+"let g:gruvbox_baby_use_original_palette= 'true'
+"let g:gruvbox_baby_telescope_theme= 'false'
+"colorscheme gruvbox-baby
 hi LspCxxHlGroupMemberVariable guifg=#83a598
 
 " alt-a as esc-a for select

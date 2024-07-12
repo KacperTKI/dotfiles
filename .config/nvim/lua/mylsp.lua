@@ -1,4 +1,4 @@
-local lsp = require("lsp-zero")
+local lsp = require("lspconfig")
 local rt = require("rust-tools")
 
 -- Mappings.
@@ -8,13 +8,6 @@ vim.api.nvim_set_keymap('n', ',e', '<cmd>lua vim.diagnostic.open_float()<CR>', o
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gE', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 vim.api.nvim_set_keymap('n', ',q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
-lsp.ensure_installed({
-    'clangd',
-    'jdtls',
-    'rust_analyzer',
-    'cmake',
-})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -40,40 +33,37 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { "documentation", "detail", "additionalTextEdits" },
+}
 
-lsp.configure('clangd', {
+lsp.clangd.setup {
     on_attach = on_attach,
     cmd = {
         "clangd",
-        "--query-driver=/bin/clang,/bin/clang++,usr/bin/gcc,/usr/bin/g++",
         "--background-index",
         "--pch-storage=memory",
-        "--clang-tidy",
-        "--suggest-missing-includes",
         "--all-scopes-completion",
         "--pretty",
         "--header-insertion=never",
         "-j=4",
         "--inlay-hints",
         "--header-insertion-decorators",
+        "--function-arg-placeholders",
+        "--completion-style=detailed",
     },
     filetypes = { "c", "cpp", "objc", "objcpp" },
-    init_option = { fallbackFlags = {  "-std=c++20"  } }
-})
-
-lsp.configure('jdtls', {
-    on_attach = on_attach,
-    filetypes = {"java"},
-    single_file_support = true,
+    init_option = { fallbackFlags = {  "-std=c++20"  } },
     capabilities = capabilities
-})
+}
 
-lsp.configure('cmake', {
+lsp.cmake.setup {
     on_attach = on_attach,
     filetypes = { "cmake", "CMakeLists.txt" },
     capabilities = capabilities
-})
+}
 
 rt.setup({
     server = {
@@ -82,11 +72,9 @@ rt.setup({
     },
 })
 
-lsp.setup();
-
 vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
+  virtual_text = false,
+  signs = false,
   update_in_insert = false,
   underline = true,
   severity_sort = false,

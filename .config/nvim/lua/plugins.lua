@@ -38,8 +38,9 @@ return require('packer').startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} }
   }
   use 'wbthomason/packer.nvim'
-  use 'ellisonleao/gruvbox.nvim'
+  -- use 'ellisonleao/gruvbox.nvim'
   use 'gruvbox-community/gruvbox'
+  -- use 'luisiacc/gruvbox-baby'
   use 'rust-lang/rust.vim'
   use 'luochen1990/rainbow'
   use 'tpope/vim-surround'
