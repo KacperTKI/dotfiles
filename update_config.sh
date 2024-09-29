@@ -3,4 +3,4 @@
 git fetch
 git pull --rebase
 
-cp -r .config/nvim ~/.config/
+cp -r /nvim ~/.config/
