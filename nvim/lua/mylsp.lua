@@ -1,6 +1,3 @@
-local lsp = require("lspconfig")
-local rt = require("rust-tools")
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -33,45 +30,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = { "documentation", "detail", "additionalTextEdits" },
-}
-
-lsp.clangd.setup {
-    on_attach = on_attach,
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--pch-storage=memory",
-        "--all-scopes-completion",
-        "--pretty",
-        "--header-insertion=never",
-        "-j=4",
-        "--inlay-hints",
-        "--header-insertion-decorators",
-        "--function-arg-placeholders",
-        "--completion-style=detailed",
-    },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
-    init_option = { fallbackFlags = {  "-std=c++20"  } },
-    capabilities = capabilities
-}
-
-lsp.cmake.setup {
-    on_attach = on_attach,
-    filetypes = { "cmake", "CMakeLists.txt" },
-    capabilities = capabilities
-}
-
-rt.setup({
-    server = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    },
-})
-
 vim.diagnostic.config({
   virtual_text = false,
   signs = false,
@@ -80,3 +38,54 @@ vim.diagnostic.config({
   severity_sort = false,
   float = true,
 })
+
+-- old capabilities
+vim.lsp.config('*', {
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      },
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+          resolveSupport = {
+            properties = {"documentation", "detail", "additionalTextEdits"},
+          },
+        }
+      }
+    }
+  },
+  root_markers = { '.git' },
+})
+
+-- C/C++
+vim.lsp.config('clangd', {
+    on_attach = on_attach,
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--pch-storage=memory",
+        "--all-scopes-completion",
+        "--pretty",
+        "--header-insertion=never",
+        "-j=2",
+        "--inlay-hints",
+        "--header-insertion-decorators",
+        "--function-arg-placeholders",
+        "--completion-style=detailed",
+    },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    init_option = { fallbackFlags = {  "-std=c++23"  } },
+    --capabilities = capabilities
+})
+
+-- CMake
+vim.lsp.config('cmake', {
+    on_attach = on_attach,
+    filetypes = { "cmake", "CMakeLists.txt" },
+    capabilities = capabilities
+})
+
+vim.lsp.enable('clangd')
+vim.lsp.enable('cmake')
